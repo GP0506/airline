@@ -16,14 +16,17 @@ object Constants {
   val AIRPORT_PROJECT_INDEX_1 = "airport_project_index_1"
   val AIRPORT_IMAGE_TABLE = "airport_image"
   val AIRPORT_AIRLINE_APPEAL_BONUS_TABLE = "airport_airline_appeal_bonus"
-  val AIRPORT_AIRLINE_APPEAL_BONUS_INDEX_1 =  "airport_airline_appeal_bonus_index_1"
+  val AIRPORT_AIRLINE_APPEAL_BONUS_INDEX_1 =
+    "airport_airline_appeal_bonus_index_1"
   val AIRPORT_RUNWAY_TABLE = "airport_runway"
   val AIRPORT_CHAMPION_TABLE = "airport_champion"
 
   val COUNTRY_TABLE = "country"
   val COUNTRY_AIRLINE_RELATIONSHIP_TABLE = "country_airline_relationship"
-  val COUNTRY_AIRLINE_RELATIONSHIP_INDEX_1 = "country_airline_relationship_index_1"
-  val COUNTRY_AIRLINE_RELATIONSHIP_INDEX_2 = "country_airline_relationship_index_2"
+  val COUNTRY_AIRLINE_RELATIONSHIP_INDEX_1 =
+    "country_airline_relationship_index_1"
+  val COUNTRY_AIRLINE_RELATIONSHIP_INDEX_2 =
+    "country_airline_relationship_index_2"
   val COUNTRY_MUTUAL_RELATIONSHIP_TABLE = "country_mutual_relationship"
   val COUNTRY_MARKET_SHARE_TABLE = "country_market_share"
   val COUNTRY_AIRLINE_TITLE_TABLE = "country_airline_title"
@@ -63,13 +66,13 @@ object Constants {
   val AIRLINE_TRANSACTION_INDEX_2 = "airline_transaction_index_2"
   val AIRLINE_CASH_FLOW_ITEM_TABLE = "airline_cash_flow_item"
   val AIRLINE_BASE_SPECIALIZATION_TABLE = "airline_base_specialization"
-  val AIRLINE_BASE_SPECIALIZATION_LAST_UPDATE_TABLE = "airline_base_specialization_last_update"
+  val AIRLINE_BASE_SPECIALIZATION_LAST_UPDATE_TABLE =
+    "airline_base_specialization_last_update"
   val AIRLINE_REPUTATION_BREAKDOWN = "airline_reputation_breakdown"
   val AIRLINE_MODIFIER_TABLE = "airline_modifier"
   val AIRLINE_MODIFIER_INDEX_PREFIX = "airline_modifier_index_"
   val AIRLINE_MODIFIER_PROPERTY_TABLE = "airline_modifier_property"
 
-  
   val INCOME_TABLE = "income"
   val CASH_FLOW_TABLE = "cash_flow"
   val AIRLINE_LOGO_TABLE = "airline_logo"
@@ -81,8 +84,10 @@ object Constants {
   val AIRPLANE_RENEWAL_TABLE = "airline_renewal"
   val AIRPLANE_CONFIGURATION_TABLE = "airplane_configuration"
   val AIRPLANE_CONFIGURATION_TEMPLATE_TABLE = "airplane_configuration_template"
-  val AIRPLANE_CONFIGURATION_TEMPLATE_INDEX_1 ="airplane_configuration_template_index_1"
-  val AIRPLANE_CONFIGURATION_TEMPLATE_INDEX_2 = "airplane_configuration_template_index_2"
+  val AIRPLANE_CONFIGURATION_TEMPLATE_INDEX_1 =
+    "airplane_configuration_template_index_1"
+  val AIRPLANE_CONFIGURATION_TEMPLATE_INDEX_2 =
+    "airplane_configuration_template_index_2"
   val LINKS_INCOME_TABLE = "links_income"
   val TRANSACTIONS_INCOME_TABLE = "transactions_income"
   val OTHERS_INCOME_TABLE = "others_income"
@@ -133,9 +138,9 @@ object Constants {
   val OLYMPIC_AIRLINE_STATS_TABLE = "olympics_airline_stats"
   val OLYMPIC_AIRLINE_GOAL_TABLE = "olympics_airline_goal"
   val EVENT_PICKED_REWARD_TABLE = "event_picked_reward"
-  val LINK_CHANGE_HISTORY_TABLE ="link_change_history"
+  val LINK_CHANGE_HISTORY_TABLE = "link_change_history"
   val LINK_CHANGE_HISTORY_INDEX_PREFIX = "link_change_index_"
-  val GOOGLE_RESOURCE_TABLE ="google_resource"
+  val GOOGLE_RESOURCE_TABLE = "google_resource"
   val BUSY_DELEGATE_TABLE = "busy_delegate"
   val COUNTRY_DELEGATE_TASK_TABLE = "country_delegate_task"
   val LINK_NEGOTIATION_TASK_TABLE = "link_negotiation_delegate_task"
@@ -154,26 +159,33 @@ object Constants {
 
   val LINK_NEGOTIATION_DISCOUNT_TABLE = "link_negotiation_discount"
 
-  val ALLIANCE_LABEL_COLOR_BY_ALLIANCE_TABLE = "alliance_label_color_by_alliance"
+  val ALLIANCE_LABEL_COLOR_BY_ALLIANCE_TABLE =
+    "alliance_label_color_by_alliance"
   val ALLIANCE_LABEL_COLOR_BY_AIRLINE_TABLE = "alliance_label_color_by_airline"
 
-  //Christmas Event
+  // Christmas Event
   val SANTA_CLAUS_INFO_TABLE = "santa_claus_info"
   val SANTA_CLAUS_GUESS_TABLE = "santa_claus_guess"
-  
+
 //  val DATABASE_CONNECTION = "jdbc:sqlite:../airline-data/db/default.db"
 //  val DB_DRIVER = "org.sqlite.JDBC"
   val configFactory = ConfigFactory.load()
-  val DB_HOST = if (configFactory.hasPath("mysqldb.host")) configFactory.getString("mysqldb.host") else "localhost:3306"
-  val dbParams = if (configFactory.hasPath("mysqldb.dbParams")) configFactory.getString("mysqldb.dbParams") else ""
+  val DB_HOST = "localhost:3306"
+  val dbParams =
+    if (configFactory.hasPath("mysqldb.dbParams"))
+      configFactory.getString("mysqldb.dbParams")
+    else ""
   println("!!!!!!!!!!!!!!!DB HOST IS " + DB_HOST)
-  
-  //val DATABASE_CONNECTION = "jdbc:mysql://" + DB_HOST + "/airline?rewriteBatchedStatements=true&useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=utf-8"
-  val DATABASE_CONNECTION = "jdbc:mysql://" + DB_HOST + "/airline_v2?rewriteBatchedStatements=true&useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=utf-8" + dbParams
-  val DB_DRIVER = "com.mysql.jdbc.Driver"
-  val DATABASE_USER = if (configFactory.hasPath("mysqldb.user")) configFactory.getString("mysqldb.user") else "sa"
-  val DATABASE_PASSWORD = if (configFactory.hasPath("mysqldb.password")) configFactory.getString("mysqldb.password") else "admin"
 
-  println(s"!!!!!!!!!!!!!!!FINAL DB str $DATABASE_CONNECTION with user $DATABASE_USER")
-  
+  // val DATABASE_CONNECTION = "jdbc:mysql://" + DB_HOST + "/airline?rewriteBatchedStatements=true&useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=utf-8"
+  val DATABASE_CONNECTION =
+    "jdbc:mysql://" + DB_HOST + "/airline_v2?rewriteBatchedStatements=true&useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=utf-8" + dbParams
+  val DB_DRIVER = "com.mysql.jdbc.Driver"
+  val DATABASE_USER = "sa"
+  val DATABASE_PASSWORD = "admin"
+
+  println(
+    s"!!!!!!!!!!!!!!!FINAL DB str $DATABASE_CONNECTION with user $DATABASE_USER"
+  )
+
 }
