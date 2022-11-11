@@ -25,6 +25,55 @@ Version 2 alpha at https://v2.airline-club.com
 1. Open another terminal, navigate to `airline-web`, run the web server by `activator run`
 1. The application should be accessible at `localhost:9000`
 
+## Nginx Proxy w/ Cloudflare HTTPS
+
+In Cloudflare go to your domain and then SSS/TLS > Origin Server. Click Create Certificate > Generate private key and CSR with Cloudflare > Drop down choose ECC > Create
+
+Save your Origin Certificate and your Private Key to a file. Example:
+
+Orgin Certificate: domain.com.crt
+Private Key: domain.com.key
+
+Example nginx virtualhost conf file:
+
+```
+server {
+
+  listen 443 ssl http2;
+  listen [::] ssl http2;
+  server_name domain.com;
+
+  ssl_certificate      /usr/local/nginx/conf/ssl/domain.com/domain.com.crt;
+  ssl_certificate_key  /usr/local/nginx/conf/ssl/domain.com/domain.com.key;
+
+  add_header X-Frame-Options SAMEORIGIN;
+  add_header X-Xss-Protection "1; mode=block" always;
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header Referrer-Policy "strict-origin-when-cross-origin";
+
+  access_log /home/nginx/domains/domain.com/log/access.log combined buffer=256k flush=5m;
+  error_log /home/nginx/domains/domain.com/log/error.log;
+
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    location / {
+    proxy_pass http://localhost:9000;
+    proxy_pass_header Content-Type;
+    proxy_read_timeout     60;
+    proxy_connect_timeout  60;
+    proxy_redirect         off;
+
+    # Allow the use of websockets
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+
+}
+```
+
 ## Banners
 
 Self notes, too much trouble for other people to set it up right now. Just do NOT enable the banner. (disabled by default, to enable change `bannerEnabled` in `application.conf`
