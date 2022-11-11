@@ -27,11 +27,12 @@ Version 2 alpha at https://v2.airline-club.com
 
 ## Nginx Proxy w/ Cloudflare HTTPS
 
-In Cloudflare go to your domain and then SSS/TLS > Origin Server. Click Create Certificate > Generate private key and CSR with Cloudflare > Drop down choose ECC > Create
+In Cloudflare go to your domain and then SSL/TLS > Origin Server. Click Create Certificate > Generate private key and CSR with Cloudflare > Drop down choose ECC > Create
 
 Save your Origin Certificate and your Private Key to a file. Example:
 
 Orgin Certificate: domain.com.crt
+
 Private Key: domain.com.key
 
 Example nginx virtualhost conf file:
