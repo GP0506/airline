@@ -3,6 +3,7 @@ package controllers
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
+import javax.inject._
 import views._
 import models._
 import com.patson.data.UserSource
@@ -10,6 +11,7 @@ import com.patson.model._
 import com.patson.Authentication
 import java.util.Calendar
 import com.patson.data.AirlineSource
+import play.api.libs.ws.WSClient
 import play.api.libs.json.Writes
 import play.api.libs.json.Json
 import play.api.libs.json.JsValue
@@ -17,7 +19,7 @@ import play.api.libs.json.JsObject
 import play.api.libs.json.JsNumber
 import play.api.libs.json.JsString
 
-class SignUp(cc: ControllerComponents)
+class SignUp @Inject() (cc: ControllerComponents)(ws: WSClient)
     extends AbstractController(cc)
     with play.api.i18n.I18nSupport {
 
