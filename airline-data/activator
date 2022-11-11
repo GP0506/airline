@@ -127,10 +127,10 @@ addConfigOpts () {
 # a ham-fisted attempt to move some memory settings in concert
 # so they need not be messed around with individually.
 get_mem_opts () {
-  local mem=${1:-1024}
+  local mem=${1:-2048}
   local meta=$(( $mem / 4 ))
-  (( $meta > 256 )) || meta=256
-  (( $meta < 1024 )) || meta=1024
+  (( $meta > 512 )) || meta=512
+  (( $meta < 2048 )) || meta=2048
 
   # default is to set memory options but this can be overridden by code section below
   memopts="-Xms${mem}m -Xmx${mem}m"
