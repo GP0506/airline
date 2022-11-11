@@ -3,7 +3,7 @@ target
 /.idea
 /.idea_modules
 /.classpath
-/.project
+project
 /.settings
 /RUNNING_PID
 /bin/
@@ -14,3 +14,6 @@ target
 /conf/gmail-credentials.json
 /conf/google-oauth-credentials.json
 /google-tokens/
+.metals
+.vscode
+null
