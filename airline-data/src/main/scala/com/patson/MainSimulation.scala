@@ -3,13 +3,13 @@
 package com.patson
 
 import java.util.concurrent.TimeUnit
-
 import akka.actor.Props
 import akka.actor.Actor
 import com.patson.data._
 import com.patson.stream.{CycleCompleted, CycleStart, SimulationEventStream}
 import com.patson.util.{AirlineCache, AirportCache}
 
+import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 
@@ -28,6 +28,7 @@ object MainSimulation extends App {
   def mainFlow() = {
     val actor = actorSystem.actorOf(Props[MainSimulationActor])
     actorSystem.scheduler.schedule(Duration.Zero, Duration(CYCLE_DURATION, TimeUnit.SECONDS), actor, Start)
+    Await.result(actorSystem.whenTerminated, Duration.Inf)
   }
 
 
@@ -65,7 +66,7 @@ object MainSimulation extends App {
       
       //purge log
       println("Purging logs")
-      LogSource.deleteLogsBeforeCycle(cycle - 100)
+      LogSource.deleteLogsBeforeCycle(cycle - com.patson.model.Log.RETENTION_CYCLE)
 
       //purge history
       println("Purging link history")

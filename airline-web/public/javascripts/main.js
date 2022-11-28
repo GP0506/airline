@@ -189,7 +189,7 @@ function loadUser(isLogin) {
 		  if (user.airlineIds.length > 0) {
 			  selectAirline(user.airlineIds[0])
 			  loadAllCountries() //load country again for relationship
-			  loadAllLogs()
+			  //loadAllLogs()
 			  addAirlineSpecificMapControls(map)
               initPrompts()
 		  }
@@ -521,9 +521,9 @@ function showWorldMap() {
 	setActiveDiv($('#worldMapCanvas'));
 	highlightTab($('.worldMapCanvasTab'))
 	$('#sidePanel').appendTo($('#worldMapCanvas'))
-	closeAirportInfoPopup()
+	//closeAirportInfoPopup()
 	if (selectedLink) {
-		selectLinkFromMap(selectedLink, true)
+		selectLinkFromMap(selectedLink, !activeAirportPopupInfoWindow) //do not refocus if there's a popup, stay where it is
 	}
 	checkTutorial('worldMap')
 }
