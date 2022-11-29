@@ -183,7 +183,7 @@ object EventSimulation {
       .toList // sort by id for more predictable result
   }
 
-  val AFFECT_RADIUS = 80 // 80km
+  val AFFECT_RADIUS = 200 // 80km
   def simulateOlympicsAffectedAirport(
       principalAirport: Airport
   ): List[Airport] = {
@@ -259,8 +259,8 @@ object EventSimulation {
     voteRoundResults.toList
   }
 
-  val BASE_PASSENGER_GOAL = 1000
-  val GOAL_BASE_FACTOR = 0.90 // 90% of the max possible pax?
+  val BASE_PASSENGER_GOAL = 2000
+  val GOAL_BASE_FACTOR = 0.50 // 50% of the max possible pax?
   def simulateOlympicsPassengerGoals(olympics: Olympics) = {
     val allLinkStats =
       LinkStatisticsSource.loadLinkStatisticsByCriteria(List.empty)
