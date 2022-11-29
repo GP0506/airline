@@ -1,5 +1,8 @@
 .scalafmt.conf
-.metals/metals.lock.db
-.metals/metals.log
-.metals/metals.mv.db
-.vscode/settings.json
+.metals/
+.vscode/
+airline-data/.metals/metals.lock.db
+.gitignore
+airline-data/.metals/metals.mv.db
+
+
