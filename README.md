@@ -14,13 +14,12 @@ Version 2 alpha at https://v2.airline-club.com
 1. Clone the Master repo
 1. Install at least java development kit 11
 1. Install Node.js 18
-1. The 2 main projects are : airline-web (all the front-end stuff) and airline-data (the backend simulation).(Optional) If you want to import them to Scala IDE (if you want to code), goto the folder of those and run `activator eclipse` to generate the eclipse project files and then import those projects into your IDE
 1. Install MySQL 8 and then create database `airline_v2`, create a user `sa`, for password you might use `admin` or change it to something else. Make sure you change the corresponding password logic in the code to match that (https://github.com/BWBama85/airline/blob/master/airline-data/src/main/scala/com/patson/data/Constants.scala#L184)
-1. `airline-web` has dependency on `airline-data`, hence navigate to `airline-data` and run `activator publishLocal`. If you see [encoding error](https://github.com/patsonluk/airline/issues/267), add character_set_server=utf8mb4 to your /etc/my.cnf and restart mysql. it's a unicode characters issue, see https://stackoverflow.com/questions/10957238/incorrect-string-value-when-trying-to-insert-utf-8-into-mysql-via-jdbc
-1. You would need to initialize the DB and data on first run. In `airline-data`, run `activator run`, then choose the one that runs `MainInit`. It will take awhile to init everything.
-1. Set `google.mapKey` in [`application.conf`](https://github.com/BWBama85/airline/blob/master/airline-web/conf/application.conf#L69) with ur google map API key value. This might not necessary if you run on local host (?) , but if you want to host a public one, your probably need to apply one from google and enable the map API. Be careful with setting budget and limit, google gives some free credit but it CAN go over and you might get charged!
-1. (Optional) For the "Flight search" function to work, install elastic search 7.x, see https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html . For windows, I recommand downloading the zip archive and just unzip it - the MSI installer did not work on my PC
-1. (Optional) For airport image search and email service for user pw reset - refer to https://github.com/BWBama85/airline/blob/master/airline-web/README
+1. Navigate to `airline-data` and run `activator publishLocal`. If you see [encoding error](https://github.com/patsonluk/airline/issues/267), add character-set-server=utf8mb4 to your /etc/my.cnf and restart mysql. it's a unicode characters issue, see https://stackoverflow.com/questions/10957238/incorrect-string-value-when-trying-to-insert-utf-8-into-mysql-via-jdbc
+1. In `airline-data`, run `activator run`, then choose the one that runs `MainInit`. It will take awhile to init everything.
+1. Set `google.mapKey` in [`application.conf`](https://github.com/BWBama85/airline/blob/master/airline-web/conf/application.conf#L69) with ur google map API key value. Be careful with setting budget and limit, google gives some free credit but it CAN go over and you might get charged!
+1. For the "Flight search" function to work, install elastic search 7.x, see https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html . For windows, I recommand downloading the zip archive and just unzip it - the MSI installer did not work on my PC
+1. For airport image search and email service for user pw reset - refer to https://github.com/BWBama85/airline/blob/master/airline-web/README
 1. Now run the background simulation by staying in `airline-data`, run `activator run`, select option `MainSimulation`. It should now run the backgroun simulation
 1. Open another terminal, navigate to `airline-web`, run the web server by `activator run`
 1. The application should be accessible at `localhost:9000`
@@ -55,9 +54,13 @@ server {
   access_log /home/nginx/domains/domain.com/log/access.log combined buffer=256k flush=5m;
   error_log /home/nginx/domains/domain.com/log/error.log;
 
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  location /assets  {
+    alias    /home/airline/airline-web/public/;
+    access_log on;
+    expires 30d;
+  }
 
-    location / {
+  location / {
     proxy_pass http://localhost:9000;
     proxy_pass_header Content-Type;
     proxy_read_timeout     60;
@@ -70,6 +73,7 @@ server {
     proxy_set_header Connection 'upgrade';
     proxy_set_header Host $host;
     proxy_cache_bypass $http_upgrade;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
 
 }
