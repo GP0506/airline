@@ -26,9 +26,9 @@ class SignUp @Inject() (cc: ControllerComponents)(ws: WSClient)
     extends AbstractController(cc)
     with play.api.i18n.I18nSupport {
   private[this] val recaptchaUrl =
-    "https://www.google.com/recaptcha/api/siteverify"
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify"
   private[this] val recaptchaAction = "signup"
-  private[this] val recaptchaSecret = "6LdyiOYeAAAAAO-lIu2Rm0tliq67XnQaYSGFbyB4"
+  private[this] val recaptchaSecret = ""
   private[this] val recaptchaScoreThreshold = 0.5
 
   /** Sign Up Form definition.
