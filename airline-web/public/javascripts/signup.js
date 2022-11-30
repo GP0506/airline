@@ -39,7 +39,7 @@
 function signup(form) {
   grecaptcha.ready(function () {
     grecaptcha
-      .execute("0x4AAAAAAABbgsGCcBm9KMJQ", { action: "signup" })
+      .execute("6LdzvfkiAAAAAEGIgFLd3yYfrKUGMmESrijsmxm3", { action: "signup" })
       .then(function (token) {
         form.append(
           '<input type="hidden" name="recaptchaToken" value="' + token + '" />'
