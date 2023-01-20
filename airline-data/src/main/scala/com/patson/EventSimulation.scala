@@ -89,14 +89,14 @@ object EventSimulation {
   }
 
   val MAX_CANDIDATES_COUNT = 6
-  val CANDIDATE_MIN_SIZE = 5
-  val CANDIDATE_MIN_POPULATION = 1000000
+  val CANDIDATE_MIN_SIZE = 4
+  val CANDIDATE_MIN_POPULATION = 500000
 
   def selectCandidates() : List[Airport] = {
     selectCandidates(AirportSource.loadAllAirports())
   }
 
-  val HOST_COUNTRY_COOLDOWN = 4 //should not be hosting it in the last 4 times
+  val HOST_COUNTRY_COOLDOWN = 6 //should not be hosting it in the last 6 times
   val HOST_ZONE_COOLDOWN = 2 //should not be hosting it in last 2 times
   def selectCandidates(allAirports : List[Airport]) : List[Airport] = {
     val previousOlympics = EventSource.loadEvents().filter(_.eventType == EventType.OLYMPICS).sortBy(_.startCycle).dropRight(1) //drop the current one
@@ -129,7 +129,7 @@ object EventSimulation {
     return candidates.sortBy(_.id).toList //sort by id for more predictable result
   }
 
-  val AFFECT_RADIUS = 80 //80km
+  val AFFECT_RADIUS = 250 //250km
   def simulateOlympicsAffectedAirport(principalAirport : Airport): List[Airport] = {
     Computation.getDomesticAirportWithinRange(principalAirport, AFFECT_RADIUS)
   }
@@ -180,7 +180,7 @@ object EventSimulation {
     voteRoundResults.toList
   }
 
-  val BASE_PASSENGER_GOAL = 2000
+  val BASE_PASSENGER_GOAL = 1000
   val GOAL_BASE_FACTOR = 0.90 //90% of the max possible pax?
   def simulateOlympicsPassengerGoals(olympics: Olympics) = {
     val allLinkStats = LinkStatisticsSource.loadLinkStatisticsByCriteria(List.empty)
