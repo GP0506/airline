@@ -78,13 +78,13 @@ sealed case class VacationHubFeature(baseStrength : Int, boosts : List[AirportBo
     if (toAirport.id == airportId && passengerType == PassengerType.TOURIST) { //only affect if as a destination and tourists
       val goFactor = { //out of how many people, will there be 1 going to this spot per year
         if (flightType == SHORT_HAUL_DOMESTIC) {
-          50
-        } else if (flightType == LONG_HAUL_DOMESTIC || flightType == MEDIUM_HAUL_DOMESTIC) {
-          150  
-        } else if (flightType == SHORT_HAUL_INTERNATIONAL) {
-          100
+          30
+        } else if (flightType == SHORT_HAUL_INTERNATIONAL || flightType == SHORT_HAUL_INTERCONTINENTAL || flightType == MEDIUM_HAUL_DOMESTIC || flightType == LONG_HAUL_DOMESTIC) {
+          100  
+        } else if (flightType == MEDIUM_HAUL_INTERNATIONAL || flightType == MEDIUM_HAUL_INTERCONTINENTAL) {
+          150
         } else {
-          250
+          500
         }
       }
       (fromAirport.population / goFactor / 52 * fromAirport.income / 50000  * strengthFactor).toInt //assume in a city of 50k income out of goFactor people, 1 will visit this spot at full strength (10)
